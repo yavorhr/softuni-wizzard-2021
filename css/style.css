@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    font-family: 'consolas'
 }
 
 .game-view{
@@ -8,3 +9,14 @@ body{
     height: 100vh;
 }
 
+.start-screen{
+    margin-top: 100px;
+    text-align: center;
+    padding: 20px;
+    background-color:lightgreen;
+    font-weight:bold;
+    position: absolute;
+    width: 500px;
+    left:50%;
+    transform: translate(-50%);
+}
