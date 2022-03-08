@@ -26,6 +26,13 @@ body{
     transform: translate(-50%);
 }
 
+.score-screen{
+    background-color: black;
+    color:white;
+    text-align: center;
+    
+}
+
 .wizard{
  position: absolute;   
  background-image: url('/images/wizard.png');
