@@ -15,13 +15,14 @@
         <div class="play-screen hidden"></div>
     </div>
 
-    <script src="init.js"></script>
+    <script src="gameState.js"></script>
+    <script src="gameFactory.js"></script>
     <script>
+        // Current game state - all data about the game
+        let getState = gameStateFactory();
+        let state = getState();
         //Current game dom elements - all needed elements, gathered in one place and assessed by property name
         let gameElements = gameFactory();
-
-        // Current game state - all data about the game
-        let state = {};
 
         gameElements.startScreen.addEventListener('click', gameStart);
 
@@ -30,7 +31,7 @@
             gameElements.startScreen.classList.add('hidden');
             gameElements.playScreen.classList.remove('hidden');
 
-            
+
         }
 
     </script>
