@@ -48,11 +48,14 @@
             Array.from(document.getElementsByClassName('bug'))
                 .forEach(bug => {
                     let currentPosition = parseInt(bug.style.left);
-                    bug.style.left = currentPosition - state.bugStats.speed + 'px';
 
-                    // TODO: remove bugs when x < 0
+                    if (currentPosition > 0) {
+                        bug.style.left = currentPosition - state.bugStats.speed + 'px';
+                    } else {
+                        bug.remove();
+                    }
 
-                    //TODO: check for collision
+
                 })
 
             //spawn bugs
