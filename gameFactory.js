@@ -20,7 +20,7 @@ function gameFactory() {
             bugElement.style.height = bugStats.height + 'px';
 
             bugElement.style.left = playScreen.offsetWidth - bugStats.width + 'px';
-            bugElement.style.top = '100px';
+            bugElement.style.top = (playScreen.offsetHeight - bugStats.height) * Math.random() + 'px';
 
             playScreen.appendChild(bugElement)
         }
@@ -31,8 +31,8 @@ function gameFactory() {
 function createWizard(posX, posY) {
     let wizardElement = document.createElement('div');
     wizardElement.classList.add('wizard');
-    wizardElement.style.top = posY + 'px';
     wizardElement.style.left = posX + 'px';
+    wizardElement.style.top = posY + 'px';
 
     return wizardElement;
 }

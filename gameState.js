@@ -10,9 +10,11 @@ function gameStateFactory() {
         },
         // currently pressed keys from user
         keys: {},
-        bugStats:{
+        bugStats: {
+            nextBugCreation: 0,
+            maxBugCreationInterval: 1500,
             width: 50,
-            height:50
+            height: 50
         }
     };
 

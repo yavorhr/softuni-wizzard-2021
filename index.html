@@ -38,14 +38,17 @@
             window.requestAnimationFrame(gameLoop);
         }
 
-        function gameLoop() {
+        function gameLoop(timestamp) {
             let { wizard } = state;
             let { wizardElement } = game;
 
             modifyWizardPosition(state, game)
 
             //spawn bugs
-            game.createBug();
+            if (state.bugStats.nextBugCreation < timestamp) {
+                game.createBug();
+                state.bugStats.nextBugCreation = timestamp + Math.random() * state.bugStats.maxBugCreationInterval;
+            }
 
             //Render 
             wizardElement.style.top = wizard.y + 'px';
@@ -85,10 +88,6 @@
         function onKeyUp(event) {
             state.keys[event.code] = false;
         }
-
-
-
-
 
     </script>
 
