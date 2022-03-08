@@ -22,9 +22,9 @@
         let getState = gameStateFactory();
         let state = getState();
         //Current game dom elements - all needed elements, gathered in one place and assessed by property name
-        let gameElements = gameFactory();
+        let game = gameFactory();
 
-        gameElements.startScreen.addEventListener('click', gameStart);
+        game.startScreen.addEventListener('click', gameStart);
 
 
         document.addEventListener('keydown', onKeyDown);
@@ -32,17 +32,17 @@
 
         function gameStart() {
 
-            gameElements.startScreen.classList.add('hidden');
-            gameElements.playScreen.classList.remove('hidden');
+            game.startScreen.classList.add('hidden');
+            game.playScreen.classList.remove('hidden');
 
             window.requestAnimationFrame(gameLoop);
         }
 
         function gameLoop() {
             let { wizard } = state;
-            let { wizardElement } = gameElements;
+            let { wizardElement } = game;
 
-            modifyWizardPosition(state, wizard)
+            modifyWizardPosition(state, game)
 
             //Render 
             wizardElement.style.top = wizard.y + 'px';
@@ -55,21 +55,22 @@
             }
         }
 
-        function modifyWizardPosition(state, wizard) {
+        function modifyWizardPosition(state, game) {
+            let wizard = state.wizard;
             // User input
-            if (state.keys.keyW) {
+            if (state.keys.keyW && wizard.y > 0) {
                 wizard.y -= wizard.speed;
             }
 
-            if (state.keys.keyS) {
+            if (state.keys.keyS && wizard.y + wizard.height < game.playScreen.offsetHeight) {
                 wizard.y += wizard.speed;
             }
 
-            if (state.keys.keyA) {
+            if (state.keys.keyA && wizard.x > 0) {
                 wizard.x -= wizard.speed;
             }
 
-            if (state.keys.keyD) {
+            if (state.keys.keyD && wizard.x + wizard.width < game.playScreen.offsetWidth) {
                 wizard.x += wizard.speed;
             }
         }
