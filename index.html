@@ -26,21 +26,65 @@
 
         gameElements.startScreen.addEventListener('click', gameStart);
 
+
+        document.addEventListener('keydown', onKeyDown);
+        document.addEventListener('keyup', onKeyUp);
+
         function gameStart() {
+
             gameElements.startScreen.classList.add('hidden');
             gameElements.playScreen.classList.remove('hidden');
 
             window.requestAnimationFrame(gameLoop);
+        }
 
-            function gameLoop() {
-                    console.log('llllll');
-                if (!state.gameOver) {
-                    window.requestAnimationFrame(gameLoop)
-                } else {
-                    alert('game over');
-                }
+        function gameLoop() {
+            let { wizard } = state;
+            let { wizardElement } = gameElements;
+
+            modifyWizardPosition(state, wizard)
+
+            //Render 
+            wizardElement.style.top = wizard.y + 'px';
+            wizardElement.style.left = wizard.x + 'px';
+
+            if (!state.gameOver) {
+                window.requestAnimationFrame(gameLoop)
+            } else {
+                alert('Game over');
             }
         }
+
+        function modifyWizardPosition(state, wizard) {
+            // User input
+            if (state.keys.keyW) {
+                wizard.y -= wizard.speed;
+            }
+
+            if (state.keys.keyS) {
+                wizard.y += wizard.speed;
+            }
+
+            if (state.keys.keyA) {
+                wizard.x -= wizard.speed;
+            }
+
+            if (state.keys.keyD) {
+                wizard.x += wizard.speed;
+            }
+        }
+
+        function onKeyDown(event) {
+            state.keys[event.code] = true;
+        }
+
+        function onKeyUp(event) {
+            state.keys[event.code] = false;
+        }
+
+
+
+
 
     </script>
 
