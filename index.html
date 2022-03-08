@@ -12,11 +12,25 @@
 <body>
     <div class="game-view">
         <div class="start-screen">Start game</div>
-        <div class="play-screen">
-
-        </div>
-
+        <div class="play-screen"></div>
     </div>
+
+    <script>
+        //Current game dom elements - all needed elements, gathered in one place and assessed by property name
+        let gameElements = {
+            startScreen: document.querySelector('.start-screen')
+        };
+        // Current game state - all data about the game
+        let state = {};
+
+        gameElements.startScreen.addEventListener('click', gameStart);
+
+        function gameStart() {
+            console.log('yyyy');
+        }
+
+    </script>
+
 </body>
 
 </html>
