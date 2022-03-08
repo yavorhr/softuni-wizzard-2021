@@ -13,6 +13,7 @@ function gameStateFactory() {
         bugStats: {
             nextBugCreation: 0,
             maxBugCreationInterval: 1500,
+            speed: 3,
             width: 50,
             height: 50
         }
