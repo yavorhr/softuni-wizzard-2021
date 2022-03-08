@@ -12,14 +12,14 @@
 <body>
     <div class="game-view">
         <div class="start-screen">Start game</div>
-        <div class="play-screen"></div>
+        <div class="play-screen hidden"></div>
     </div>
 
+    <script src="init.js"></script>
     <script>
         //Current game dom elements - all needed elements, gathered in one place and assessed by property name
-        let gameElements = {
-            startScreen: document.querySelector('.start-screen')
-        };
+        let gameElements = gameFactory();
+
         // Current game state - all data about the game
         let state = {};
 
@@ -27,6 +27,10 @@
 
         function gameStart() {
             console.log('yyyy');
+            gameElements.startScreen.classList.add('hidden');
+            gameElements.playScreen.classList.remove('hidden');
+
+            
         }
 
     </script>
