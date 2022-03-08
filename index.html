@@ -27,11 +27,19 @@
         gameElements.startScreen.addEventListener('click', gameStart);
 
         function gameStart() {
-            console.log('yyyy');
             gameElements.startScreen.classList.add('hidden');
             gameElements.playScreen.classList.remove('hidden');
 
+            window.requestAnimationFrame(gameLoop);
 
+            function gameLoop() {
+                    console.log('llllll');
+                if (!state.gameOver) {
+                    window.requestAnimationFrame(gameLoop)
+                } else {
+                    alert('game over');
+                }
+            }
         }
 
     </script>
