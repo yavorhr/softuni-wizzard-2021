@@ -10,7 +10,7 @@ body{
 }
 
 .play-screen {
- width: 100%; ;
+ width: 100%; 
  height: 100%;  
 }
 
@@ -32,6 +32,12 @@ body{
  width: 82px;
  height: 100px;
  background-size: cover;
+}
+
+.bug{
+    position: absolute;
+    background-image: url(/images/bug.png);
+    background-size: cover;
 }
 
 .hidden{
