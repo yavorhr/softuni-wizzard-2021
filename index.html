@@ -55,7 +55,10 @@
                         bug.remove();
                     }
 
-
+                    //Check for collision
+                    if (hasCollision(wizardElement, bug)) {
+                        state.gameOver = true;
+                    }
                 })
 
             //spawn bugs
@@ -95,12 +98,22 @@
             }
         }
 
-        function onKeyDown(event) {
-            state.keys[event.code] = true;
+        function hasCollision(firstElement, secondElement) {
+            let firstRect = firstElement.getBoundingClientRect();
+            let secondRect = firstElement.getBoundingClientRect();
+
+            return (!firstRect.top > secondRect.bottom || firstRect.bottom < secondRect.top
+                || firstRect.right < secondRect.left || firstRect.left > secondRect.right)
+
         }
 
-        function onKeyUp(event) {
-            state.keys[event.code] = false;
+
+        function onKeyDown(e) {
+            state.keys[e.code] = true;
+        }
+
+        function onKeyUp(e) {
+            state.keys[e.code] = false;
         }
 
     </script>
