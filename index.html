@@ -44,7 +44,10 @@
             //Wizard strikets "fireball"
             if (state.keys.Space) {
                 wizardElement.style.backgroundImage = "url('/images/wizard-fire.png')";
-                game.createFireball();
+                if (state.fireballStats.nextFireBallCreation < timestamp) {
+                    game.createFireball();
+                    state.fireballStats.nextFireBallCreation = timestamp + state.fireballStats.attackSpeed;
+                }
             } else {
                 wizardElement.style.backgroundImage = "url('/images/wizard.png')"
             }
@@ -64,6 +67,7 @@
                         if (hasCollision(fireball, bug)) {
                             bug.remove();
                             fireball.remove();
+                            state.score += state.bugStats.score;
                         }
                     })
                 })
@@ -145,6 +149,7 @@
         }
 
         function onKeyDown(e) {
+            e.preventDefault();
             state.keys[e.code] = true;
         }
 

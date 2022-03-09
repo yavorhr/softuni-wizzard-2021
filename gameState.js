@@ -16,11 +16,14 @@ var state = {
         maxBugCreationInterval: 1500,
         speed: 3,
         width: 50,
-        height: 50
+        height: 50,
+        score:500,
     },
     fireballStats: {
         height: 40,
         width: 40,
-        speed: 10
+        speed: 10,
+        nextFireBallCreation:0,
+        attackSpeed: 400,
     }
 };
