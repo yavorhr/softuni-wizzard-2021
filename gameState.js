@@ -9,21 +9,20 @@ var state = {
         speed: 7,
         gravity: 2,
     },
-    // currently pressed keys from user
     keys: {},
     bugStats: {
         nextBugCreation: 0,
-        maxBugCreationInterval: 1500,
+        maxCreationInterval: 1500,
         speed: 3,
         width: 50,
         height: 50,
-        score:500,
+        score: 500,
     },
     fireballStats: {
-        height: 40,
         width: 40,
+        height: 40,
         speed: 10,
-        nextFireBallCreation:0,
+        nextFireballCreation: 0,
         attackSpeed: 400,
     }
 };

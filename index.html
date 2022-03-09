@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Softuni Wizzard</title>
+    <title>Softuni Wizard</title>
 </head>
 
 <body>
     <div class="game-view">
-        <div class="start-screen">Start game</div>
+        <div class="start-screen">Start Game</div>
         <div class="score-screen">0 pts.</div>
         <div class="play-screen hidden"></div>
     </div>
@@ -19,40 +19,38 @@
     <script src="gameState.js"></script>
     <script src="gameFactory.js"></script>
     <script>
-
-        //Current game dom elements - all needed elements, gathered in one place and assessed by property name
         let game = gameFactory();
 
         game.startScreen.addEventListener('click', gameStart);
-        document.addEventListener('keydown', onKeyDown);
-        document.addEventListener('keyup', onKeyUp);
+
+        document.addEventListener('keydown', onKeyDown)
+        document.addEventListener('keyup', onKeyUp)
+
 
         function gameStart() {
-
             game.startScreen.classList.add('hidden');
             game.playScreen.classList.remove('hidden');
 
-            window.requestAnimationFrame(gameLoop);
+            window.requestAnimationFrame(gameLoop)
         }
 
         function gameLoop(timestamp) {
             let { wizard } = state;
             let { wizardElement, scoreScreen } = game;
 
-            modifyWizardPosition(state, game)
+            modifyWizardPosition(state, game);
 
-            //Wizard strikets "fireball"
             if (state.keys.Space) {
                 wizardElement.style.backgroundImage = "url('/images/wizard-fire.png')";
-                if (state.fireballStats.nextFireBallCreation < timestamp) {
+                if (state.fireballStats.nextFireballCreation < timestamp) {
                     game.createFireball();
-                    state.fireballStats.nextFireBallCreation = timestamp + state.fireballStats.attackSpeed;
+                    state.fireballStats.nextFireballCreation = timestamp + state.fireballStats.attackSpeed;
                 }
             } else {
-                wizardElement.style.backgroundImage = "url('/images/wizard.png')"
+                wizardElement.style.backgroundImage = "url('/images/wizard.png')";
             }
 
-            //Move fireballs
+            // Move fireballs
             Array.from(document.getElementsByClassName('fireball'))
                 .forEach(fireball => {
                     let currentPosition = parseInt(fireball.style.left);
@@ -63,102 +61,98 @@
                         fireball.remove();
                     }
 
-                    Array.from(document.getElementsByClassName('bug')).forEach(bug => {
-                        if (hasCollision(fireball, bug)) {
-                            bug.remove();
-                            fireball.remove();
-                            state.score += state.bugStats.score;
-                        }
-                    })
-                })
+                    Array.from(document.getElementsByClassName('bug'))
+                        .forEach(bug => {
+                            if (hasCollision(fireball, bug)) {
+                                bug.remove();
+                                fireball.remove();
+                                state.score += state.bugStats.score;
+                            }
+                        });
+
+                });
 
             // Move bugs
             Array.from(document.getElementsByClassName('bug'))
-                .forEach(bug => {
-                    let currentPosition = parseInt(bug.style.left);
+                .forEach(x => {
+                    let currentPosition = parseInt(x.style.left);
 
                     if (currentPosition > 0) {
-                        bug.style.left = currentPosition - state.bugStats.speed + 'px';
+                        x.style.left = currentPosition - state.bugStats.speed + 'px';
                     } else {
-                        bug.remove();
+                        x.remove();
                     }
 
-                    //Check for collision
-                    if (hasCollision(wizardElement, bug)) {
+                    if (hasCollision(wizardElement, x)) {
                         state.gameOver = true;
                     }
-                })
+                });
 
-            //spawn bugs
+            // spawn bugs
             if (state.bugStats.nextBugCreation < timestamp) {
                 game.createBug();
-                state.bugStats.nextBugCreation = timestamp + Math.random() * state.bugStats.maxBugCreationInterval;
+                state.bugStats.nextBugCreation = timestamp + Math.random() * state.bugStats.maxCreationInterval;
             }
 
-            //Increase bug speed
-            state.bugStats.speed += 0.0001;
+            // Increase bug speed
+            state.bugStats.speed += 0.01;
 
-            //Render 
+            // Render
             wizardElement.style.top = wizard.y + 'px';
             wizardElement.style.left = wizard.x + 'px';
-            scoreScreen.textContent = state.score + '.pts';
+            scoreScreen.textContent = state.score + 'pts.';
 
             if (!state.gameOver) {
                 state.score += 1;
+
                 window.requestAnimationFrame(gameLoop)
             } else {
-                alert('Game over');
-
+                alert('Game Over' + state.score)
             }
         }
 
         function modifyWizardPosition(state, game) {
             let wizard = state.wizard;
 
-            // Add gravity to the wizard
             let isLowerBound = wizard.y + wizard.height >= game.playScreen.offsetHeight;
-
             if (!isLowerBound) {
                 wizard.y += wizard.gravity;
             }
 
-            // User input
-            if (state.keys.keyW && wizard.y > 0) {
+            if (state.keys.KeyW && wizard.y > 0) {
                 wizard.y -= wizard.speed;
             }
 
-            if (state.keys.keyS && wizard.y + wizard.height < game.playScreen.offsetHeight) {
+            if (state.keys.KeyS && !isLowerBound) {
                 wizard.y += wizard.speed;
             }
 
-            if (state.keys.keyA && wizard.x > 0) {
+            if (state.keys.KeyA && wizard.x > 0) {
                 wizard.x -= wizard.speed;
             }
 
-            if (state.keys.keyD && wizard.x + wizard.width < game.playScreen.offsetWidth) {
+            if (state.keys.KeyD && wizard.x + wizard.width < game.playScreen.offsetWidth) {
                 wizard.x += wizard.speed;
             }
         }
 
         function hasCollision(firstElement, secondElement) {
-            let firstRect = firstElement.getBoundingClientRect();
-            let secondRect = firstElement.getBoundingClientRect();
+            let first = firstElement.getBoundingClientRect();
+            let second = secondElement.getBoundingClientRect();
 
-            return (!firstRect.top > secondRect.bottom || firstRect.bottom < secondRect.top
-                || firstRect.right < secondRect.left || firstRect.left > secondRect.right)
+            return !(first.top > second.bottom || first.bottom < second.top || first.right < second.left || first.left > second.right);
         }
 
         function onKeyDown(e) {
             e.preventDefault();
             state.keys[e.code] = true;
+
         }
 
         function onKeyUp(e) {
             state.keys[e.code] = false;
         }
-
     </script>
-
 </body>
 
 </html>
