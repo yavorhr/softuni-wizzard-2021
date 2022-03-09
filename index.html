@@ -15,7 +15,7 @@
         <div class="score-screen">0 pts.</div>
         <div class="play-screen hidden"></div>
     </div>
-  
+
     <script src="gameState.js"></script>
     <script src="gameFactory.js"></script>
     <script>
@@ -48,6 +48,18 @@
             } else {
                 wizardElement.style.backgroundImage = "url('/images/wizard.png')"
             }
+
+            //Move fireballs
+            Array.from(document.getElementsByClassName('fireball'))
+                .forEach(x => {
+                    let currentPosition = parseInt(x.style.left);
+
+                    if (currentPosition + state.fireballStats.width < game.playScreen.offsetWidth) {
+                        x.style.left = currentPosition + state.fireballStats.speed + 'px';
+                    } else {
+                        x.remove();
+                    }
+                })
 
             // Move bugs
             Array.from(document.getElementsByClassName('bug'))
