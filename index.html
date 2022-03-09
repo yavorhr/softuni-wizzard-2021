@@ -15,13 +15,11 @@
         <div class="score-screen">0 pts.</div>
         <div class="play-screen hidden"></div>
     </div>
-
+  
     <script src="gameState.js"></script>
     <script src="gameFactory.js"></script>
     <script>
-        // Current game state - all data about the game
-        let getState = gameStateFactory();
-        let state = getState();
+
         //Current game dom elements - all needed elements, gathered in one place and assessed by property name
         let game = gameFactory();
 
@@ -42,6 +40,14 @@
             let { wizardElement, scoreScreen } = game;
 
             modifyWizardPosition(state, game)
+
+            //Wizard strikets "fireball"
+            if (state.keys.Space) {
+                wizardElement.style.backgroundImage = "url('/images/wizard-fire.png')";
+                game.createFireball();
+            } else {
+                wizardElement.style.backgroundImage = "url('/images/wizard.png')"
+            }
 
             // Move bugs
             Array.from(document.getElementsByClassName('bug'))

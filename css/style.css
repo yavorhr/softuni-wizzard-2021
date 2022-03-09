@@ -30,7 +30,6 @@ body{
     background-color: black;
     color:white;
     text-align: center;
-    
 }
 
 .wizard{
@@ -39,6 +38,12 @@ body{
  width: 82px;
  height: 100px;
  background-size: cover;
+}
+
+.fireball {
+    position: absolute;
+    background-image: url("/images//fire-ball.png");
+    background-size: cover;
 }
 
 .bug{
